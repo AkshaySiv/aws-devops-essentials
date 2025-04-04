@@ -23,9 +23,16 @@ A company has developers, testers, and admins who need access to different AWS s
 Easier to manage access when team members join or leave. Simply add or remove users from the groups.
 
 ## Implementation Steps
-1. Open the **IAM Console**.
+
+1. Open the **IAM Console**
+
+![alt text](images/image.png)
+
 2. Go to **Groups** and click **Create New Group**.
 3. Name the group (e.g., `Developers`, `Testers`, `Admins`).
+
+
+
 4. Attach policies based on the roles described.
 5. Go to **Users** and click **Add User**.
 6. Add users and assign them to the respective groups.
