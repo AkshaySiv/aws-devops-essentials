@@ -34,3 +34,11 @@ AWS Identity and Access Management (IAM) is a web service that helps you securel
 - Role-based access for applications and external users.
 
 By using IAM, you can ensure that your AWS resources are accessible only to authorized users while maintaining a high level of security.
+
+
+---
+
+## Example Project
+
+For a practical example, refer to the [IAM Example Project](example-project/iam_project.md).
+
