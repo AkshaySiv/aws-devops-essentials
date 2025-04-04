@@ -39,7 +39,17 @@ Easier to manage access when team members join or leave. Simply add or remove us
 
 ![alt text](images/tester_policy.png)
 
-5. Go to **Users** and click **Add User**.
+5. Go to **Users** and click **Add User**:
+    - Enter a unique username for the new user eg: `tester-1` 
+    - Select the type of access:
+      - **Programmatic access**: For CLI, SDK, or API access.
+      - **AWS Management Console access**: For web-based console access.
+    - Set AWS to auto-generate password.
+    - Add the user to the appropriate group (e.g., `Developers`, `Testers`, `Admins`).
+    - Review and create the user. Download the credentials securely if programmatic access is enabled.
+
+![alt text](images/add_user.png)
+
 6. Add users and assign them to the respective groups.
 
 ## Example AWS CLI Commands
