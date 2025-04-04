@@ -1,9 +1,39 @@
 ## Sample HTTPD Project: Hosting a Website on EC2
 
-### Prerequisites
-1. An AWS account.
-2. An EC2 instance running Amazon Linux 2.
-3. Security group with HTTP (port 80) access enabled.
+### Steps to Create an EC2 Instance
+
+1. **Log in to the AWS Management Console**  
+    Navigate to the [AWS Management Console](https://aws.amazon.com/console/) and sign in with your credentials.
+
+2. **Launch an EC2 Instance**  
+    - Go to the EC2 Dashboard and click on "Launch Instance."
+    - Choose an Amazon Machine Image (AMI), such as Amazon Linux 2.
+
+3. **Select an Instance Type**  
+    Choose an instance type, such as `t2.micro` (eligible for the free tier).
+
+4. **Configure Instance Details**  
+    - Set the number of instances to 1.
+    - Configure other settings as needed, or leave them as default.
+
+5. **Add Storage**  
+    Specify the storage size and type. The default settings are usually sufficient for this project
+
+6. **Add Tags**  
+    Add tags to help identify your instance (e.g., `Name: MyWebServer`).
+
+7. **Configure Security Group**  
+    - Create a new security group or select an existing one.
+    - Allow inbound traffic on port 22 (SSH) and port 80 (HTTP).
+
+8. **Review and Launch**  
+    Review your settings and click "Launch." Select or create a key pair to connect to the instance.
+
+9. **Access Your Instance**  
+    Once the instance is running, use the public IP address and your key pair to connect via SSH:
+    ```bash
+    ssh -i your-key.pem ec2-user@your-ec2-public-ip
+    ```
 
 ### Steps to Host a Website
 1. **Connect to Your EC2 Instance**  
