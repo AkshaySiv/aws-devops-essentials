@@ -1,73 +1,41 @@
-# Example Project: Running Jenkins on an EC2 Machine
+## Sample HTTPD Project: Hosting a Website on EC2
 
-This project demonstrates how to set up and run Jenkins on an AWS EC2 instance 
+### Prerequisites
+1. An AWS account.
+2. An EC2 instance running Amazon Linux 2.
+3. Security group with HTTP (port 80) access enabled.
 
-## Prerequisites
+### Steps to Host a Website
+1. **Connect to Your EC2 Instance**  
+    Use SSH to connect to your EC2 instance:
+    ```bash
+    ssh -i your-key.pem ec2-user@your-ec2-public-ip
+    ```
 
-- IAM role with necessary permissions
-- EC2 instance (Amazon Linux 2 or Ubuntu recommended)
-- Security group allowing HTTP (port 80) and Jenkins (port 8080)
+2. **Install Apache HTTPD**  
+    Update the package manager and install the Apache HTTPD server:
+    ```bash
+    sudo yum update -y
+    sudo yum install httpd -y
+    ```
 
-## Steps
+3. **Start and Enable HTTPD Service**  
+    Start the HTTPD service and enable it to run on boot:
+    ```bash
+    sudo systemctl start httpd
+    sudo systemctl enable httpd
+    ```
 
-1. **Launch an EC2 Instance**
-    - Choose an Amazon Linux 2 or Ubuntu AMI.
-    - Configure instance details and attach the IAM role.
-    - Add a security group with inbound rules for ports 22, 80, and 8080.
+4. **Create a Sample Website**  
+    Create an `index.html` file in the default web directory:
+    ```bash
+    echo "<h1>Welcome to My Sample HTTPD Project!</h1>" | sudo tee /var/www/html/index.html
+    ```
 
-2. **Connect to the Instance**
-    - Use SSH to connect to your EC2 instance:
-      ```bash
-      ssh -i your-key.pem ec2-user@your-ec2-public-ip
-      ```
+5. **Access the Website**  
+    Open a browser and navigate to `http://your-ec2-public-ip`. You should see your sample website.
 
-3. **Install Jenkins**
-    - Update the package manager:
-      ```bash
-      sudo yum update -y  # For Amazon Linux
-      sudo apt update -y  # For Ubuntu
-      ```
-    - Install Java:
-      ```bash
-      sudo yum install java-11-openjdk -y  # For Amazon Linux
-      sudo apt install openjdk-11-jdk -y  # For Ubuntu
-      ```
-    - Add the Jenkins repository and install Jenkins:
-      ```bash
-      sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-      sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-      sudo yum install jenkins -y  # For Amazon Linux
-      ```
-      ```bash
-      curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
-         /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-      echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-         https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-         /etc/apt/sources.list.d/jenkins.list > /dev/null
-      sudo apt update -y
-      sudo apt install jenkins -y  # For Ubuntu
-      ```
-
-4. **Start Jenkins**
-    - Start and enable Jenkins:
-      ```bash
-      sudo systemctl start jenkins
-      sudo systemctl enable jenkins
-      ```
-
-5. **Access Jenkins**
-    - Open a browser and navigate to `http://your-ec2-public-ip:8080`.
-    - Retrieve the initial admin password:
-      ```bash
-      sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-      ```
-    - Complete the setup wizard and install recommended plugins.
-
-## Cleanup
-
-- Terminate the EC2 instance when no longer needed to avoid charges.
-
-## Notes
-
-- Ensure your security group is configured correctly to allow traffic on required ports.
-- Use a strong password for Jenkins and consider enabling HTTPS for secure access.
+### Notes
+- Ensure your EC2 instance's security group allows inbound traffic on port 80.
+- Replace `your-ec2-public-ip` with the public IP address of your EC2 instance.
+- You can customize the `index.html` file to host your own content.
