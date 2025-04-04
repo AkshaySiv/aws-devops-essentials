@@ -31,9 +31,14 @@ Easier to manage access when team members join or leave. Simply add or remove us
 2. Go to **Groups** and click **Create New Group**.
 3. Name the group (e.g., `Developers`, `Testers`, `Admins`).
 
-
+![alt text](images/groups.png)
 
 4. Attach policies based on the roles described.
+
+    Go to User groups - Tester - Add permissions option : Lets try assigning `S3readonly` access
+
+![alt text](images/tester_policy.png)
+
 5. Go to **Users** and click **Add User**.
 6. Add users and assign them to the respective groups.
 
