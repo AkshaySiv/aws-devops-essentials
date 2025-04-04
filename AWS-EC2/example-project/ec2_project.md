@@ -74,3 +74,5 @@
 
 5. **Access the Website**  
     Open a browser and navigate to `http://your-ec2-public-ip`. You should see your sample website.
+
+    ![alt text](../images/browser.png)
