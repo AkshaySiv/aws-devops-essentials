@@ -40,3 +40,62 @@ Amazon Simple Storage Service (S3) is a scalable, high-speed, web-based cloud st
 
 For more details, visit the [AWS S3 Documentation](https://aws.amazon.com/s3/)
 
+
+## Additional Notes
+- **Object Size Limit**: Individual objects stored in an S3 bucket can be up to 5TB in size. For objects larger than 5GB, it is recommended to use the **multipart upload** feature to upload the object in parts, ensuring efficient and reliable uploads.
+
+For more information, refer to the [AWS S3 Multipart Upload Documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html).
+
+## Restricting Access to a Specific S3 Bucket
+
+To restrict access to a particular S3 bucket for a user or group, you can use AWS Identity and Access Management (IAM) policies or S3 bucket policies. Below is an example of how to achieve this:
+
+### Using an IAM Policy
+You can create an IAM policy that explicitly denies or allows access to a specific bucket. Here's an example policy to allow access only to a specific bucket:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::example-bucket",
+                "arn:aws:s3:::example-bucket/*"
+            ]
+        }
+    ]
+}
+```
+
+Attach this policy to the IAM user or group.
+
+### Using a Bucket Policy
+You can also use a bucket policy to restrict access. Here's an example bucket policy to allow access only to a specific IAM user:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:user/ExampleUser"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::example-bucket",
+                "arn:aws:s3:::example-bucket/*"
+            ]
+        }
+    ]
+}
+```
+
+### Key Points
+- Replace `example-bucket` with the name of your bucket.
+- Replace `123456789012:user/ExampleUser` with the ARN of the IAM user or group.
+- Test the policy to ensure it works as expected.
+
+For more details, refer to the [AWS S3 Bucket Policy Documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html).
