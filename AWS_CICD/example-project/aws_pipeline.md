@@ -53,6 +53,43 @@ By granting this access, your CodeBuild project can securely retrieve Docker cre
 
 ![alt text](images/build.png)
 
+Once build is completed the image should be available in dockerhub
+
 ![alt text](images/dockerhub.png)
 
 
+Now Lets intergate codebuild with AWS codepipeline
+
+## 🔄 Steps to Create a CodePipeline and Integrate with CodeDeploy
+
+1. **Navigate to CodePipeline**  
+    Go to the [AWS Management Console](https://aws.amazon.com/console/) and open the CodePipeline service.
+
+2. **Create a New Pipeline**  
+    - Click on **Create pipeline**.
+    - Provide a **Pipeline name** (`sample-project-pipeline`).
+    - Select a new role for the pipeline.
+
+3. **Add Source Stage**  
+    - Choose the **Source provider** GitHub
+    - Connect your repository
+
+4. **Add Build Stage**  
+    - Choose **AWS CodeBuild** as the build provider.
+    - Select the previously created CodeBuild project (`sample-project`).
+
+<!-- 5. **Add Deploy Stage**  
+    - Choose **AWS CodeDeploy** as the deploy provider.
+    - Select the application and deployment group configured in CodeDeploy. -->
+
+6. **Review and Create Pipeline**  
+    - Review the pipeline configuration.
+    - Click **Create pipeline** to save and start the pipeline.
+
+7. **Trigger the Pipeline**  
+    - Push changes to the configured branch in your repository.
+    - The pipeline will automatically trigger, build, and deploy the application.
+
+By following these steps, you can integrate CodeBuild with CodePipeline and deploy your application using CodeDeploy.
+
+![alt text](images/codepipeline.png)
