@@ -106,4 +106,8 @@ AWS CodePipeline is a fully managed continuous delivery service that automates t
 
 AWS CodePipeline streamlines the software release process, making it a key component of modern DevOps practices.
 
-![alt text](example-project/images/codepipeline.png)
+
+
+## Example Project
+
+For a practical example, refer to the [CICD Example Project] [text](example-project/aws_pipeline.md)
