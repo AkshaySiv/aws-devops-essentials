@@ -249,9 +249,33 @@ By following these steps, you can integrate CodeBuild with CodePipeline and depl
          ```
 
     By adding the `appspec.yml` file and the relevant hook scripts, you can automate the deployment process and manage the lifecycle of your application containers effectively.
-    
+
     Now the deployment stage should be success
 
     ![alt text](images/codedeploy.png)
 
- 
+## 🔗 Integrating CodeDeploy with CodePipeline
+
+To complete the integration of CodeDeploy with CodePipeline, follow these steps:
+
+1. **Add Deploy Stage in CodePipeline**  
+    - Navigate to the [AWS CodePipeline Console](https://console.aws.amazon.com/codepipeline/).
+    - Select the pipeline you created earlier (`sample-project-pipeline`).
+    - Click **Edit** and add a new stage.
+
+2. **Configure Deploy Stage**  
+    - Provide a **Stage name** (`Deploy`).
+    - Add an **Action group** and choose **AWS CodeDeploy** as the action provider.
+    - Select the **Application name** (`sample-application`) and **Deployment group** (`sample-deployment-group`) created earlier.
+
+3. **Save and Update the Pipeline**  
+    - Click **Done** to save the deploy stage.
+    - Click **Save pipeline changes** to update the pipeline.
+
+4. **Trigger the Pipeline**  
+    - Push changes to the configured branch in your repository.
+    - The pipeline will automatically trigger, build, and deploy the application using CodeDeploy.
+
+By completing these steps, your CodePipeline will now include a deploy stage that integrates with CodeDeploy, enabling a fully automated CI/CD workflow.
+
+![alt text](images/codepipeline-deploy.png)
