@@ -278,4 +278,8 @@ To complete the integration of CodeDeploy with CodePipeline, follow these steps:
 
 By completing these steps, your CodePipeline will now include a deploy stage that integrates with CodeDeploy, enabling a fully automated CI/CD workflow.
 
-![alt text](images/codepipeline-deploy.png)
+![alt text](images/codepipelinefinal.png)
+
+Lets check our application is deployed and accessible via the public IP of of ec2 instance
+
+![alt text](images/browser.png)
