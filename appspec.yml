@@ -7,4 +7,4 @@ hooks:
   AfterInstall:
     - run: docker pull akshaysiv/sample-html:latest
   ApplicationStart:
-    - run: docker run -d -p 80:80 --name my-app kshaysiv/sample-html:latest
+    - run: docker run -d -p 80:80 --name my-app akshaysiv/sample-html:latest
