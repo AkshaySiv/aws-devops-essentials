@@ -181,8 +181,77 @@ By following these steps, you can integrate CodeBuild with CodePipeline and depl
 
 6. **Deploy the Application**  
     - Navigate to the application and click **Create deployment**.
-    - Specify the **Revision location** (e.g., S3 bucket or GitHub repository).
+    - Specify the **Revision location** GitHub repository.
     - Select the **Deployment group** created earlier.
-    - Click **Create deployment** to start the deployment process.
+    - Click **Create deployment** to start the deployment process
 
-By completing these steps, you can set up CodeDeploy to manage the deployment of your application.  
+    ## 📄 Creating the `appspec.yml` File
+
+    To enable CodeDeploy to manage the deployment process, you need to create an `appspec.yml` file in the root of your GitHub repository. This file defines the deployment lifecycle hooks and specifies the actions to take during each phase.
+
+    ### Example `appspec.yml` File
+
+    ```yaml
+    version: 0.0
+    os: linux
+    files:
+        - source: /
+            destination: /home/ec2-user/app
+
+    hooks:
+        BeforeInstall:
+            - location: scripts/stop_container.sh
+                timeout: 300
+                runas: root
+        AfterInstall:
+            - location: scripts/start_container.sh
+                timeout: 300
+                runas: root
+    ```
+
+    ### Explanation of the `appspec.yml` File
+
+    1. **`files` Section**  
+         - Specifies the source and destination for the application files.
+         - In this example, all files from the repository root are copied to `/home/ec2-user/app`.
+
+    2. **`hooks` Section**  
+         - Defines lifecycle event hooks to execute custom scripts during deployment.
+         - **`BeforeInstall`**: Stops any running container using the `stop_container.sh` script.
+         - **`AfterInstall`**: Starts the container using the `start_container.sh` script.
+
+    ### Creating the Hook Scripts
+
+    1. **`stop_container.sh`**  
+         This script stops any running Docker container.
+
+         ```bash
+         #!/bin/bash
+         echo "Stopping running containers..."
+         docker stop $(docker ps -q) || true
+         docker rm $(docker ps -a -q) || true
+         ```
+
+    2. **`start_container.sh`**  
+         This script starts the Docker container with the updated application.
+
+         ```bash
+         #!/bin/bash
+         echo "Starting container..."
+         docker run -d -p 80:80 --name my-app my-docker-image:latest
+         ```
+
+    3. **Make the Scripts Executable**  
+         Ensure the scripts are executable by running the following command:
+
+         ```bash
+         chmod +x scripts/stop_container.sh scripts/start_container.sh
+         ```
+
+    By adding the `appspec.yml` file and the relevant hook scripts, you can automate the deployment process and manage the lifecycle of your application containers effectively.
+    
+    Now the deployment stage should be success
+
+    ![alt text](images/codedeploy.png)
+
+ 
