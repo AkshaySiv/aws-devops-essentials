@@ -110,4 +110,4 @@ AWS CodePipeline streamlines the software release process, making it a key compo
 
 ## Example Project
 
-For a practical example, refer to the [CICD Example Project] [text](example-project/aws_pipeline.md)
+For a practical example, refer to the [CICD Example Project](example-project/aws_pipeline.md)
