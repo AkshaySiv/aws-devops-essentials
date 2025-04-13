@@ -1,0 +1,10 @@
+version: 0.0
+os: ubuntu
+
+hooks:
+  ApplicationStop:
+    - run: docker stop my-app && docker rm my-app
+  AfterInstall:
+    - run: docker pull akshaysiv/sample-html:latest
+  ApplicationStart:
+    - run: docker run -d -p 80:80 --name my-app kshaysiv/sample-html:latest
