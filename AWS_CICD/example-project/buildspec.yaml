@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  parameter-store:
+    DOCKER_USRNAME: sample-app-docker-username
+    DOCKER_PASSWD: docker_username
+    DOCKER_REGISTRY: docker_registry
+phases:
+  pre_build:
+    commands:
+      - echo "$DOCKER_PASSWD" | docker login -u "$DOCKER_USRNAME" --password-stdin "$DOCKER_REGISTRY"
+  build:
+    commands:
+      - cd AWS_CICD/example-project
+      - docker build -t "$DOCKER_REGISTRY/$DOCKER_USRNAME/sample-html:latest" .
+      - docker push "$DOCKER_REGISTRY/$DOCKER_USRNAME/sample-html:latest"
+  post_build:
+    commands:
+      - echo Build completed successfully.

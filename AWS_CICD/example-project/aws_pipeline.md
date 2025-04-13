@@ -93,3 +93,96 @@ Now Lets intergate codebuild with AWS codepipeline
 By following these steps, you can integrate CodeBuild with CodePipeline and deploy your application using CodeDeploy.
 
 ![alt text](images/codepipeline.png)
+
+## 🛠️ Steps to Create a CodeDeploy Application and Deployment Group
+
+1. **Navigate to CodeDeploy**  
+    Go to the [AWS Management Console](https://aws.amazon.com/console/) and open the CodeDeploy service.
+
+2. **Create a New Application**  
+    - Click on **Create application**.
+    - Provide an **Application name** `sample-application`.
+    - Select the **Compute platform**`EC2/On-premises`
+    ### Install the CodeDeploy Agent on EC2 Instance
+
+    To use CodeDeploy with an EC2 instance, you need to install the CodeDeploy agent. Follow these steps:
+
+    1. **Connect to the EC2 Instance**  
+        - Use SSH to connect to your EC2 instance.
+
+    2. **Update the Package Manager**  
+        ```bash
+        sudo yum update -y
+        ```
+
+    3. **Install the CodeDeploy Agent**  
+        
+        https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-ubuntu.html
+
+    4. **Verify the Installation**  
+        ```bash
+        sudo service codedeploy-agent status
+        ```
+        Ensure the agent is running. If not, start it:
+        ```bash
+        sudo service codedeploy-agent start
+        ```
+
+    5. **Tag the Instance**  
+        - Navigate to the [AWS EC2 Console](https://console.aws.amazon.com/ec2/).
+        - Select the instance and add a tag with the key `env` and value `prod`.
+
+    ### Create an IAM Role for EC2 to Communicate with CodeDeploy
+
+    1. **Navigate to the IAM Console**  
+        Go to the [AWS IAM Console](https://console.aws.amazon.com/iam/).
+
+    2. **Create a New Role**  
+        - Click on **Roles** in the left navigation pane.
+        - Click **Create role**.
+
+    3. **Select Trusted Entity**  
+        - Choose **AWS service**.
+        - Select **EC2** as the use case and click **Next**.
+
+    4. **Attach Policies**  
+        - Search for and select the **AWSCodeDeployRole** policy.
+
+    5. **Name the Role**  
+        - Provide a **Role name** (`CodeDeploy-EC2-Role`).
+        - Click **Create role**.
+
+    6. **Attach the Role to the EC2 Instance**  
+        - Navigate to the [AWS EC2 Console](https://console.aws.amazon.com/ec2/).
+        - Select the instance you want to use with CodeDeploy.
+        - Click **Actions** > **Security** > **Modify IAM Role**.
+        - Select the newly created role (`CodeDeploy-EC2-Role`) and save.
+
+    7. **Restart the CodeDeploy Agent again**  
+        Alternatively, you can restart it directly:
+        ```bash
+        sudo service codedeploy-agent restart
+        ```
+
+    By completing these steps, your EC2 instance will have the necessary permissions to communicate with CodeDeploy.
+
+    By completing these steps, your EC2 instance will be ready for CodeDeploy.
+
+3. **Create a Deployment Group**  
+    - Click on **Create deployment group**.
+    - Provide a **Deployment group name** (`sample-deployment-group`).
+    - Select the **Service role** that CodeDeploy will use to access resources.
+    - Configure the **Deployment type** `In-place`
+
+4. **Save the Deployment Group**  
+    - Review the settings and click **Create deployment group**
+
+    ![alt text](images/deploymentgroup.png)
+
+6. **Deploy the Application**  
+    - Navigate to the application and click **Create deployment**.
+    - Specify the **Revision location** (e.g., S3 bucket or GitHub repository).
+    - Select the **Deployment group** created earlier.
+    - Click **Create deployment** to start the deployment process.
+
+By completing these steps, you can set up CodeDeploy to manage the deployment of your application.  
