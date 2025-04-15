@@ -45,7 +45,7 @@ Both services are excellent for managing container images, but the choice depend
 
 ## Example Project
 
-To see an example of how to use AWS ECR in a real-world scenario, check out the [AWS ECR Example Project](AWS_ECR/example-project/ecr_project.md). This project demonstrates how to:
+To see an example of how to use AWS ECR in a real-world scenario, check out the [AWS ECR Example Project](example-project/ecr_project.md). This project demonstrates how to:
 
 - Push and pull container images to and from AWS ECR.
 - Use AWS CLI and Docker CLI to interact with ECR repositories.
